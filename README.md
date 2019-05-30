@@ -43,6 +43,10 @@ $ composer create-project laravel/laravel laravel-shop --prefer-dist "5.8.*"
 - yarn
 
 ```
+$ yarn config set registry https://registry.npm.taobao.org
+
+$ SASS_BINARY_SITE=http://npm.taobao.org/mirrors/node-sass yarn
+
 $ yarn [install] --no-bin-links
 
 $ yarn [install] --no-bin-links --no-lockfile
