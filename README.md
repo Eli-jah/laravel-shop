@@ -61,3 +61,16 @@ $ npm run dev | development
 
 $ npm run prod | production
 ```
+
+-MailHog
+
+```
+Port mapping @ homestead: 1025 - 8025
+
+{{ env('APP_URL', 'http://laravelshop.test') . ':8025/' }}
+
+eg. http://laravelshop.test:8025/
+```
+
+
+
