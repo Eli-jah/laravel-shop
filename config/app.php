@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'zh-CN', // Note: It's zh-CN, not zh_CN!
 
     /*
     |--------------------------------------------------------------------------
@@ -107,7 +107,7 @@ return [
     */
 
     // 'faker_locale' => 'en_US',
-    'faker_locale' => 'zh_CN',
+    'faker_locale' => 'zh_CN', // Note: It's zh_CN, not zh-CN!
 
     /*
     |--------------------------------------------------------------------------
@@ -159,7 +159,9 @@ return [
         Illuminate\Redis\RedisServiceProvider::class,
         Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
         Illuminate\Session\SessionServiceProvider::class,
-        Illuminate\Translation\TranslationServiceProvider::class,
+        // Illuminate\Translation\TranslationServiceProvider::class,
+        // Replaced by the following one:
+        Overtrue\LaravelLang\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
