@@ -55,6 +55,12 @@ $ php artisan storage:link
 # to create a new model with correspondent database migration and factory
 $ php artisan make:model Models/ModelNameInCamelCase -mf
 
+# to creat a migration seeder for a new model
+$ php artisan make:seeder ModelNameInPluralFormsSeeder
+
+# to run a specific migration seeder
+$ php artisan db:seed --class=ModelNameInPluralFormsSeeder
+
 # tinker(REPL)
 $ php artisan tinker
 # to publish Tinker's configuration file

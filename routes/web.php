@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
-Route::get('/', 'PagesController@root')->name('root');
+// Route::get('/', 'PagesController@root')->name('root');
 // Route::get('/', 'PagesController@root')->name('root')->middleware('verified');
 
 // auth 中间件代表需要登录，verified中间件代表需要经过邮箱验证
@@ -32,3 +32,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::put('user_addresses/{user_address}', 'UserAddressesController@update')->name('user_addresses.update');
     Route::delete('user_addresses/{user_address}', 'UserAddressesController@destroy')->name('user_addresses.destroy');
 });
+
+Route::redirect('/', '/products')->name('root');
+Route::get('products', 'ProductsController@index')->name('products.index');
