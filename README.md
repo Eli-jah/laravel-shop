@@ -38,6 +38,40 @@ yarn-error.log
 $ composer config -g repo.packagist composer https://packagist.laravel-china.org
 
 $ composer create-project laravel/laravel laravel-shop --prefer-dist "5.8.*"
+
+# for deployment
+$ composer install --optimize-autoloader --no-dev
+```
+
+- artisan
+
+```
+# to set the application key
+$ php artisan key:generate
+
+# to create the symbolic link to the public disk (from "public/storage" to "storage/app/public")
+$ php artisan storage:link
+
+# tinker(REPL)
+$ php artisan tinker
+# to publish Tinker's configuration file
+$ php artisan vendor:publish --provider="Laravel\Tinker\TinkerServiceProvider"
+
+# to flush the application cache
+$ php artisan cache:clear
+
+# to remove the configuration cache file
+$ php artisan config:clear
+
+# to remove the route cache file
+$ php artisan route:clear
+
+# to clear all the compiled view files
+$ php artisan view:clear
+
+# for deployment
+$ php artisan config:cache
+$ php artisan route:cache
 ```
 
 - yarn
@@ -50,9 +84,12 @@ $ yarn config set registry https://registry.npm.taobao.org
 
 $ SASS_BINARY_SITE=http://npm.taobao.org/mirrors/node-sass yarn
 
+# initial installation
 $ yarn [install] --no-bin-links
-
+# or:
 $ yarn [install] --no-bin-links --no-lockfile
+
+$ yarn add package-name
 ```
 
 - npm
