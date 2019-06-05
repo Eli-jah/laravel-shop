@@ -52,6 +52,9 @@ $ php artisan key:generate
 # to create the symbolic link to the public disk (from "public/storage" to "storage/app/public")
 $ php artisan storage:link
 
+# to create a new model with correspondent database migration and factory
+$ php artisan make:model Models/ModelNameInCamelCase -mf
+
 # tinker(REPL)
 $ php artisan tinker
 # to publish Tinker's configuration file
