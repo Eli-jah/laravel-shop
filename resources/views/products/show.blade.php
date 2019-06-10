@@ -112,7 +112,7 @@
                         });
             });
 
-
+            // 监听取消收藏按钮的点击事件
             $('.btn-disfavor').click(function () {
                 axios.delete('{{ route('products.disfavor', ['product' => $product->id]) }}')
                         .then(function () {
