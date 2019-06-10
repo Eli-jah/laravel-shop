@@ -149,12 +149,14 @@ class ProductsController extends Controller
         $form->editor('description', '商品描述')->rules('required');
 
         // 创建一组单选框
-        $form->radio('on_sale', '上架')->options(['1' => '是', '0'=> '否'])->default('0');
+        $form->radio('on_sale', '上架')->options(['1' => '是', '0' => '否'])->default('0');
         /*$states = [
             'on'  => ['value' => 1, 'text' => '上架', 'color' => 'success'],
             'off' => ['value' => 0, 'text' => '下架', 'color' => 'danger'],
         ];
         $form->switch('on_sale', '上架')->states($states)->default('0');*/
+
+        $form->divide();
 
         // 直接添加一对多的关联模型
         $form->hasMany('skus', 'SKU 列表', function (Form\NestedForm $form) {
@@ -163,6 +165,8 @@ class ProductsController extends Controller
             $form->text('price', '单价')->rules('required|numeric|min:0.01');
             $form->text('stock', '剩余库存')->rules('required|integer|min:0');
         });
+
+        $form->divide();
 
         // 定义事件回调，当模型即将保存时会触发这个回调
         $form->saving(function (Form $form) {
