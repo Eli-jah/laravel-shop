@@ -78,6 +78,6 @@
             order_box.on('change', function () {
                 $('.search-form').submit();
             });
-        })
+        });
     </script>
 @endsection

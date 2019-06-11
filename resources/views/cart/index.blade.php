@@ -56,6 +56,35 @@
                         @endforeach
                         </tbody>
                     </table>
+                    <!-- 开始 -->
+                    <div>
+                        <form class="form-horizontal" role="form" id="order-form">
+                            <div class="form-group row">
+                                <label for="address" class="col-form-label col-sm-3 text-md-right">选择收货地址</label>
+                                <div class="col-sm-9 col-md-7">
+                                    <select id="address" class="form-control" name="address">
+                                        @foreach($addresses as $address)
+                                            <option value="{{ $address->id }}">
+                                                {{ $address->full_address }} {{ $address->contact_name }} {{ $address->contact_phone }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="remark" class="col-form-label col-sm-3 text-md-right">备注</label>
+                                <div class="col-sm-9 col-md-7">
+                                    <textarea id="remark" name="remark" class="form-control" rows="3"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="offset-sm-3 col-sm-3">
+                                    <button type="button" class="btn btn-primary btn-create-order">提交订单</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- 结束 -->
                 </div>
             </div>
         </div>
@@ -75,7 +104,7 @@
                     title: "确认要将该商品移除？",
                     icon: "warning",
                     buttons: ['取消', '确定'],
-                    dangerMode: true,
+                    dangerMode: true
                 })
                         .then(function (willDelete) {
                             // 用户点击 确定 按钮，willDelete 的值就会是 true，否则为 false
@@ -100,6 +129,56 @@
                     // 将其勾选状态设为与目标单选框一致
                     $(this).prop('checked', checked);
                 });
+            });
+
+            // 监听创建订单按钮的点击事件
+            $('.btn-create-order').click(function () {
+                var order_form = $('#order-form');
+                // 构建请求参数，将用户选择的地址的 id 和备注内容写入请求参数
+                var req = {
+                    address_id: order_form.find('select[name=address]').val(), // $('#address').val()
+                    items: [],
+                    remark: order_form.find('textarea[name=remark]').val() // $('#remark').val()
+                };
+                // 遍历 <table> 标签内所有带有 data-id 属性的 <tr> 标签，也就是每一个购物车中的商品 SKU
+                $('table tr[data-id]').each(function () {
+                    // 获取当前行的单选框
+                    var $checkbox = $(this).find('input[name=select][type=checkbox]');
+                    // 如果单选框被禁用或者没有被选中则跳过
+                    if ($checkbox.prop('disabled') || !$checkbox.prop('checked')) {
+                        return;
+                    }
+                    // 获取当前行中数量输入框
+                    var $input = $(this).find('input[name=amount]');
+                    // 如果用户将数量设为 0 或者不是一个数字，则也跳过
+                    if ($input.val() == 0 || isNaN($input.val())) {
+                        return;
+                    }
+                    // 把 SKU id 和数量存入请求参数数组中
+                    req.items.push({
+                        sku_id: $(this).data('id'),
+                        amount: $input.val()
+                    });
+                });
+                axios.post('{{ route('orders.store') }}', req)
+                        .then(function (response) {
+                            swal('订单提交成功', '', 'success');
+                        }, function (error) {
+                            if (error.response.status === 422) {
+                                // http 状态码为 422 代表用户输入校验失败
+                                var html = '<div>';
+                                _.each(error.response.data.errors, function (errors) {
+                                    _.each(errors, function (error) {
+                                        html += error + '<br>';
+                                    });
+                                });
+                                html += '</div>';
+                                swal({content: $(html)[0], icon: 'error'});
+                            } else {
+                                // 其他情况应该是系统挂了
+                                swal('系统错误', '', 'error');
+                            }
+                        });
             });
         });
     </script>

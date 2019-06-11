@@ -31,9 +31,9 @@ class AddCartRequest extends Request
                     if ($this->input('amount') > 0 && $sku->stock < $this->input('amount')) {
                         return $fail('该商品库存不足');
                     }
-                },
+                }
             ],
-            'amount' => ['required', 'integer', 'min:1'],
+            'amount' => ['required', 'integer', 'min:1']
         ];
     }
 

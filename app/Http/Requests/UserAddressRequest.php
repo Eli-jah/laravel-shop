@@ -20,7 +20,7 @@ class UserAddressRequest extends Request
             'address' => 'required',
             'zip' => 'required',
             'contact_name' => 'required',
-            'contact_phone' => 'required',
+            'contact_phone' => 'required'
         ];
     }
 
@@ -38,7 +38,7 @@ class UserAddressRequest extends Request
             'address' => '详细地址',
             'zip' => '邮编',
             'contact_name' => '姓名',
-            'contact_phone' => '电话',
+            'contact_phone' => '电话'
         ];
     }
 }
