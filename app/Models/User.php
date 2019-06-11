@@ -49,7 +49,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at'
     ];*/
 
-    /* Relationship */
+    /* Eloquent Relationships */
     public function addresses()
     {
         return $this->hasMany(UserAddress::class);

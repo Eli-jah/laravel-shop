@@ -22,7 +22,7 @@ class CartItem extends Model
      */
     public $timestamps = false;
 
-    /* Relationship */
+    /* Eloquent Relationships */
     public function user()
     {
         return $this->belongsTo(User::class);

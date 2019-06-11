@@ -18,7 +18,16 @@ class ProductSku extends Model
         'stock'
     ];
 
-    /* Relationship */
+    /**
+     * The relationships that should be touched on save.
+     *
+     * @var array
+     */
+    /*protected $touches = [
+        'product'
+    ];*/
+
+    /* Eloquent Relationships */
     public function product()
     {
         return $this->belongsTo(Product::class);

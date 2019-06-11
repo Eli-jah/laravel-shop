@@ -52,7 +52,7 @@ class Product extends Model
         return Storage::disk('admin')->url($this->attributes['image']);
     }
 
-    /* Relationship */
+    /* Eloquent Relationships */
     // 与商品SKU关联
     public function skus()
     {

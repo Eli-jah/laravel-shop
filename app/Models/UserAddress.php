@@ -45,7 +45,7 @@ class UserAddress extends Model
         return "{$this->province}{$this->city}{$this->district}{$this->address}";
     }
 
-    /* Relationship */
+    /* Eloquent Relationships */
     public function user()
     {
         return $this->belongsTo(User::class);
