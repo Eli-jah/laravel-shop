@@ -231,4 +231,6 @@ return [
 
     ],
 
+    // time to close the unpaid order. (unit: second)
+    'order_ttl' => 1800 // unit: second
 ];
