@@ -62,6 +62,16 @@ $ php artisan make:seeder ModelNameInPluralFormsSeeder
 # to run a specific migration seeder
 $ php artisan db:seed --class=ModelNameInPluralFormsSeeder
 
+# to create a new controller class
+$ php artisan make:controller ModelNameInPluralFormsController --model=App\\Models\\ModelNameInCamelCase
+# OR:
+$ php artisan make:controller ModelNameInPluralFormsController --model="App\Models\ModelNameInCamelCase"
+
+# to make an admin controller
+$ php artisan admin:make ModelNameInPluralFormsController --model=App\\Models\\ModelNameInCamelCase
+# OR:
+$ php artisan admin:make ModelNameInPluralFormsController --model="App\Models\ModelNameInCamelCase"
+
 # tinker(REPL)
 $ php artisan tinker
 # to publish Tinker's configuration file
