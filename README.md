@@ -9,6 +9,7 @@
 /node_modules
 /public/css
 /public/font
+/public/fonts
 /public/hot
 /public/js
 /public/mix-manifest.json
@@ -111,7 +112,7 @@ $ npm run dev | development
 $ npm run prod | production
 ```
 
--MailHog
+- MailHog
 
 ```
 Port mapping @ homestead: 1025 - 8025
@@ -121,5 +122,11 @@ Port mapping @ homestead: 1025 - 8025
 eg. http://laravelshop.test:8025/
 ```
 
+- Commands Run in the Background on the Dev Mode
 
+```
+$ npm run watch-poll &
+
+$ php artisan queue:work &
+```
 
