@@ -9,6 +9,7 @@
 /public/packages
 /public/storage
 /public/uploads
+/resource/wechat_pay
 /storage/administrator_settings
 /storage/debugbar
 /storage/*.key
