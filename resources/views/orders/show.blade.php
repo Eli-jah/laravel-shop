@@ -105,6 +105,12 @@
                                     @endif
                                 </div>
                             </div>
+                            @if(isset($order->extra['refund_disagree_reason']))
+                                <div>
+                                    <span>拒绝退款理由：</span>
+                                    <div class="value">{{ $order->extra['refund_disagree_reason'] }}</div>
+                                </div>
+                            @endif
                             <!-- 支付按钮开始 -->
                             @if(!$order->paid_at && !$order->closed)
                                 <div class="payment-buttons">
@@ -155,8 +161,7 @@
                     content: $('<img src="{{ route('payment.wechat', ['order' => $order->id]) }}" />')[0],
                     // buttons 参数可以设置按钮显示的文案
                     buttons: ['关闭', '已完成付款']
-                })
-                .then(function(result) {
+                }).then(function(result) {
                     // 如果用户点击了 已完成付款 按钮，则重新加载页面
                     if (result) {
                         location.reload();
@@ -172,15 +177,13 @@
                     icon: "warning",
                     dangerMode: true,
                     buttons: ['取消', '确认收到']
-                })
-                .then(function (ret) {
+                }).then(function (ret) {
                     // 如果点击取消按钮则不做任何操作
                     if (!ret) {
                         return;
                     }
                     // ajax 提交确认操作
-                    axios.post('{{ route('orders.received', ['order' => $order->id]) }}')
-                    .then(function () {
+                    axios.post('{{ route('orders.received', ['order' => $order->id]) }}').then(function () {
                         // 刷新页面
                         location.reload();
                     });
