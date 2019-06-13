@@ -71,6 +71,30 @@
                                 {!! $product->description !!}
                             </div>
                             <div role="tabpanel" class="tab-pane" id="product-reviews-tab">
+                                <!-- 评论列表开始 -->
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <td>用户</td>
+                                        <td>商品</td>
+                                        <td>评分</td>
+                                        <td>评价</td>
+                                        <td>时间</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($reviews as $review)
+                                        <tr>
+                                            <td>{{ $review->order->user->name }}</td>
+                                            <td>{{ $review->productSku->title }}</td>
+                                            <td>{{ str_repeat('★', $review->rating) }}{{ str_repeat('☆', 5 - $review->rating) }}</td>
+                                            <td>{{ $review->review }}</td>
+                                            <td>{{ $review->reviewed_at->format('Y-m-d H:i') }}</td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                                <!-- 评论列表结束 -->
                             </div>
                         </div>
                     </div>
@@ -95,9 +119,9 @@
                 axios.post('{{ route('products.favor', ['product' => $product->id]) }}')
                 .then(function () { // 请求成功会执行这个回调
                     swal('操作成功', '', 'success')
-                            .then(function () {  // 这里加了一个 then() 方法
-                                location.reload();
-                            });
+                    .then(function () {  // 这里加了一个 then() 方法
+                        location.reload();
+                    });
                 }, function (error) { // 请求失败会执行这个回调
                     // 如果返回码是 401 代表没登录
                     if (error.response && error.response.status === 401) {
