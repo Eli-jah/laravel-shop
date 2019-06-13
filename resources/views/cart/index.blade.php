@@ -33,7 +33,7 @@
                                     </div>
                                     <div @if(!$item->productSku->product->on_sale) class="not_on_sale" @endif>
                                         <span class="product_title">
-                                            <a target="_blank" href="{{ route('products.show', [$item->productSku->product_id]) }}">
+                                            <a target="_blank" href="{{ route('products.show', ['product' => $item->productSku->product_id]) }}">
                                                 {{ $item->productSku->product->title }}
                                             </a>
                                         </span>
@@ -106,16 +106,16 @@
                     buttons: ['取消', '确定'],
                     dangerMode: true
                 })
-                        .then(function (willDelete) {
-                            // 用户点击 确定 按钮，willDelete 的值就会是 true，否则为 false
-                            if (!willDelete) {
-                                return;
-                            }
-                            axios.delete('/cart/' + id)
-                                    .then(function () {
-                                        location.reload();
-                                    });
-                        });
+                .then(function (willDelete) {
+                    // 用户点击 确定 按钮，willDelete 的值就会是 true，否则为 false
+                    if (!willDelete) {
+                        return;
+                    }
+                    axios.delete('/cart/' + id)
+                    .then(function () {
+                        location.reload();
+                    });
+                });
             });
 
             // 监听 全选/取消全选 单选框的变更事件
@@ -161,27 +161,27 @@
                     });
                 });
                 axios.post('{{ route('orders.store') }}', req)
-                        .then(function (response) {
-                            swal('订单提交成功', '', 'success')
-                                    .then(function () {
-                                        location.href = '/orders/' + response.data.id;
-                                    });
-                        }, function (error) {
-                            if (error.response.status === 422) {
-                                // http 状态码为 422 代表用户输入校验失败
-                                var html = '<div>';
-                                _.each(error.response.data.errors, function (errors) {
-                                    _.each(errors, function (error) {
-                                        html += error + '<br>';
-                                    });
-                                });
-                                html += '</div>';
-                                swal({content: $(html)[0], icon: 'error'});
-                            } else {
-                                // 其他情况应该是系统挂了
-                                swal('系统错误', '', 'error');
-                            }
+                .then(function (response) {
+                    swal('订单提交成功', '', 'success')
+                            .then(function () {
+                                location.href = '/orders/' + response.data.id;
+                            });
+                }, function (error) {
+                    if (error.response.status === 422) {
+                        // http 状态码为 422 代表用户输入校验失败
+                        var html = '<div>';
+                        _.each(error.response.data.errors, function (errors) {
+                            _.each(errors, function (error) {
+                                html += error + '<br>';
+                            });
                         });
+                        html += '</div>';
+                        swal({content: $(html)[0], icon: 'error'});
+                    } else {
+                        // 其他情况应该是系统挂了
+                        swal('系统错误', '', 'error');
+                    }
+                });
             });
         });
     </script>
