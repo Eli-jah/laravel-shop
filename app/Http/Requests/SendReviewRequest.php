@@ -35,7 +35,7 @@ class SendReviewRequest extends Request
     {
         return [
             'reviews.*.rating' => '评分',
-            'reviews.*.review' => '评价',
+            'reviews.*.review' => '评价'
         ];
     }
 }
