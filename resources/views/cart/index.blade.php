@@ -174,8 +174,8 @@
                 });
                 axios.post('{{ route('orders.store') }}', req).then(function (response) {
                     swal('订单提交成功', '', 'success').then(function () {
-                                location.href = '/orders/' + response.data.id;
-                            });
+                        location.href = '/orders/' + response.data.id;
+                    });
                 }, function (error) {
                     if (error.response.status === 422) {
                         // http 状态码为 422 代表用户输入校验失败
@@ -187,6 +187,8 @@
                         });
                         html += '</div>';
                         swal({content: $(html)[0], icon: 'error'});
+                    } else if (error.response.status === 403) { // 这里判断状态 403
+                        swal(error.response.data.msg, '', 'error');
                     } else {
                         // 其他情况应该是系统挂了
                         swal('系统错误', '', 'error');
